@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hyde - discord.gg/antidater</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background:
+            radial-gradient(circle at top, rgba(90,167,255,0.12), transparent 40%),
+            radial-gradient(circle at bottom, rgba(138,92,255,0.10), transparent 40%),
+            #0b0b10;
+        font-family: Arial, sans-serif;
+        color: white;
+    }
+
+    .wrap {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        padding: 25px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+        backdrop-filter: blur(14px);
+        position: relative;
+    }
+
+    .left {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        max-width: 300px;
+    }
+
+    .title {
+        font-size: 34px;
+        font-weight: 800;
+        background: linear-gradient(90deg, #5aa7ff, #8a5cff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .desc {
+        color: rgba(255,255,255,0.7);
+        line-height: 1.5;
+        font-size: 14px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 16px;
+        border-radius: 12px;
+        text-decoration: none;
+        color: #0b0b10;
+        background: linear-gradient(135deg, #5aa7ff, #8a5cff);
+        font-weight: 700;
+        width: fit-content;
+        transition: 0.2s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(90,167,255,0.4);
+    }
+
+    iframe {
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 0 30px rgba(0,0,0,0.6);
+    }
+
+    .onlineBox {
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
+        font-size: 13px;
+        color: rgba(255,255,255,0.8);
+        width: fit-content;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 12px;
+        right: 14px;
+        font-size: 12px;
+        color: rgba(255,255,255,0.35);
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 800px) {
+        .wrap {
+            flex-direction: column;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+    <div class="left">
+        <div class="title">Best Anti-Pedo Discord</div>
+
+        <div class="desc">
+            An Among Us server to prevent predators from making contact with children.
+        </div>
+
+        <a class="btn" href="https://discord.gg/antidater" target="_blank">
+            Join Discord
+        </a>
+
+        <div class="onlineBox" id="online">
+            Loading...
+        </div>
+    </div>
+
+    <iframe 
+        src="https://discord.com/widget?id=1433165229994410137&theme=dark"
+        width="350"
+        height="500"
+        allowtransparency="true"
+        frameborder="0"
+        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+    </iframe>
+
+</div>
+
+<div class="footer">
+    Site by nyvex | 1446657201757225231
+</div>
+
+<script>
+
+const KEY = "active_tabs";
+
+// create unique tab id
+const tabId = Math.random().toString(36).substring(2);
+
+// load existing
+function getTabs() {
+    return JSON.parse(localStorage.getItem(KEY) || "[]");
+}
+
+// save
+function setTabs(tabs) {
+    localStorage.setItem(KEY, JSON.stringify(tabs));
+}
+
+// add this tab
+function addTab() {
+    let tabs = getTabs();
+    if (!tabs.includes(tabId)) {
+        tabs.push(tabId);
+        setTabs(tabs);
+    }
+}
+
+// remove this tab
+function removeTab() {
+    let tabs = getTabs();
+    tabs = tabs.filter(t => t !== tabId);
+    setTabs(tabs);
+}
+
+// update UI
+function update() {
+    const count = getTabs().length;
+    document.getElementById("online").innerText = "Online on Site: " + count;
+}
+
+// init
+addTab();
+update();
+
+// live sync
+setInterval(update, 1000);
+
+// cleanup on exit
+window.addEventListener("beforeunload", removeTab);
+</script>
+
+</body>
+</html>
