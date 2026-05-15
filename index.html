@@ -62,7 +62,9 @@
     }
 
     .btn {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         padding: 10px 16px;
         border-radius: 12px;
         text-decoration: none;
@@ -78,6 +80,11 @@
     .btn:hover {
         transform: scale(1.05);
         box-shadow: 0 0 20px rgba(90,167,255,0.4);
+    }
+
+    .btnRow {
+        display: flex;
+        gap: 10px;
     }
 
     iframe {
@@ -99,7 +106,7 @@
         backdrop-filter: blur(10px);
     }
 
-    /* INDEX WINDOW (FIXED SIZE + PROPER CENTER) */
+    /* WINDOW */
     .overlay {
         position: fixed;
         top: 0;
@@ -123,6 +130,7 @@
         border: 1px solid rgba(255,255,255,0.15);
         position: relative;
         box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        padding: 50px 25px 25px 25px;
     }
 
     .overlayHeader {
@@ -131,14 +139,12 @@
         left: 12px;
         font-size: 13px;
         color: rgba(255,255,255,0.7);
-        z-index: 10001;
     }
 
     .closeBtn {
         position: absolute;
         top: 10px;
         right: 10px;
-        z-index: 10000;
         padding: 8px 12px;
         border: none;
         border-radius: 10px;
@@ -147,10 +153,10 @@
         cursor: pointer;
     }
 
-    .overlay iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
+    .textBox {
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(255,255,255,0.85);
     }
 
     @media (max-width: 800px) {
@@ -174,16 +180,17 @@
         <div class="title">Best Anti-Predator Discord</div>
 
         <div class="desc">
-            A community server designed to prevent unsafe contact between users and minors.
+            A community server designed to help prevent unsafe interactions online.
         </div>
 
         <a class="btn" href="https://discord.gg/antidater" target="_blank">
             Join Discord
         </a>
 
-        <button class="btn" onclick="openIndex()">
-            Index
-        </button>
+        <div class="btnRow">
+            <button class="btn" onclick="openIndex()">Index</button>
+            <button class="btn" onclick="openWho()">Who gets indexed?</button>
+        </div>
     </div>
 
     <iframe 
@@ -198,34 +205,53 @@
 </div>
 
 <div class="footer">
-    Site by nyvex | 1446657201757225231
+    Site by NyveX | 1446657201757225231
 </div>
 
 <!-- INDEX WINDOW -->
-<div class="overlay" id="overlay">
-
+<div class="overlay" id="overlayIndex">
     <div class="overlayContent">
-
-        <div class="overlayHeader">
-            Data Records
-        </div>
-
+        <div class="overlayHeader">Index Viewer</div>
         <button class="closeBtn" onclick="closeIndex()">Close</button>
-
         <iframe src="https://au.tntaddict.net/aufiles"></iframe>
-
     </div>
+</div>
 
+<!-- INFO WINDOW -->
+<div class="overlay" id="overlayWho">
+    <div class="overlayContent">
+        <div class="overlayHeader">Who gets indexed?</div>
+        <button class="closeBtn" onclick="closeWho()">Close</button>
+
+        <div class="textBox">
+            As long as you are not flagged for inappropriate online behavior, you don’t need to worry about appearing in the database.  
+            Only users involved in suspicious activity or rule violations may be included here.  
+
+            The database is regularly reviewed by the community, and entries are checked to avoid mistakes.  
+            If you believe you were added incorrectly, you can request removal via Discord.
+
+            <br><br>
+            ~ NyveX - Hyde
+        </div>
+    </div>
 </div>
 
 <script>
 
 function openIndex() {
-    document.getElementById("overlay").style.display = "flex";
+    document.getElementById("overlayIndex").style.display = "flex";
 }
 
 function closeIndex() {
-    document.getElementById("overlay").style.display = "none";
+    document.getElementById("overlayIndex").style.display = "none";
+}
+
+function openWho() {
+    document.getElementById("overlayWho").style.display = "flex";
+}
+
+function closeWho() {
+    document.getElementById("overlayWho").style.display = "none";
 }
 
 </script>
