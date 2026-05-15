@@ -71,6 +71,8 @@
         font-weight: 700;
         width: fit-content;
         transition: 0.2s ease;
+        cursor: pointer;
+        border: none;
     }
 
     .btn:hover {
@@ -84,16 +86,6 @@
         box-shadow: 0 0 30px rgba(0,0,0,0.6);
     }
 
-    .onlineBox {
-        padding: 10px 12px;
-        border-radius: 10px;
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.08);
-        font-size: 13px;
-        color: rgba(255,255,255,0.8);
-        width: fit-content;
-    }
-
     .footer {
         position: absolute;
         bottom: 12px;
@@ -105,6 +97,50 @@
         background: rgba(255,255,255,0.03);
         border: 1px solid rgba(255,255,255,0.06);
         backdrop-filter: blur(10px);
+    }
+
+    /* INDEX OVERLAY */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.75);
+        backdrop-filter: blur(8px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .overlayContent {
+        width: 90%;
+        height: 90%;
+        background: #111;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.1);
+        position: relative;
+    }
+
+    .closeBtn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 10000;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.1);
+        color: white;
+        cursor: pointer;
+    }
+
+    .overlay iframe {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
     }
 
     @media (max-width: 800px) {
@@ -129,6 +165,10 @@
         <a class="btn" href="https://discord.gg/antidater" target="_blank">
             Join Discord
         </a>
+
+        <button class="btn" onclick="openIndex()">
+            Index
+        </button>
     </div>
 
     <iframe 
@@ -146,24 +186,36 @@
     Site by nyvex | 1446657201757225231
 </div>
 
+<!-- INDEX OVERLAY -->
+<div class="overlay" id="overlay">
+    <div class="overlayContent">
+        <button class="closeBtn" onclick="closeIndex()">Close</button>
+        <iframe src="https://au.tntaddict.net/aufiles"></iframe>
+    </div>
+</div>
+
 <script>
 
-const KEY = "active_tabs";
+function openIndex() {
+    document.getElementById("overlay").style.display = "flex";
+}
 
-// create unique tab id
+function closeIndex() {
+    document.getElementById("overlay").style.display = "none";
+}
+
+// optional tab tracking (unchanged)
+const KEY = "active_tabs";
 const tabId = Math.random().toString(36).substring(2);
 
-// load existing
 function getTabs() {
     return JSON.parse(localStorage.getItem(KEY) || "[]");
 }
 
-// save
 function setTabs(tabs) {
     localStorage.setItem(KEY, JSON.stringify(tabs));
 }
 
-// add this tab
 function addTab() {
     let tabs = getTabs();
     if (!tabs.includes(tabId)) {
@@ -172,22 +224,16 @@ function addTab() {
     }
 }
 
-// remove this tab
 function removeTab() {
     let tabs = getTabs();
     tabs = tabs.filter(t => t !== tabId);
     setTabs(tabs);
 }
 
-// init
 addTab();
-update();
-
-// live sync
-setInterval(update, 1000);
-
-// cleanup on exit
+setInterval(() => {}, 1000);
 window.addEventListener("beforeunload", removeTab);
+
 </script>
 
 </body>
