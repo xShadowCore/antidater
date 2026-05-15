@@ -80,6 +80,29 @@
         box-shadow: 0 0 20px rgba(90,167,255,0.4);
     }
 
+    /* INDEX BUTTON MORE IMPACT */
+    .btn.index {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn.index::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 40%);
+        transform: rotate(25deg);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% { transform: translateX(-60%) rotate(25deg); }
+        100% { transform: translateX(60%) rotate(25deg); }
+    }
+
     iframe {
         border-radius: 16px;
         border: none;
@@ -99,7 +122,7 @@
         backdrop-filter: blur(10px);
     }
 
-    /* INDEX OVERLAY */
+    /* SMALLER OVERLAY */
     .overlay {
         position: fixed;
         top: 0;
@@ -115,13 +138,24 @@
     }
 
     .overlayContent {
-        width: 90%;
-        height: 90%;
+        width: 70%;
+        height: 75%;
+        max-width: 900px;
+        max-height: 650px;
         background: #111;
         border-radius: 16px;
         overflow: hidden;
         border: 1px solid rgba(255,255,255,0.1);
         position: relative;
+    }
+
+    .overlayHeader {
+        position: absolute;
+        top: 10px;
+        left: 12px;
+        font-size: 13px;
+        color: rgba(255,255,255,0.7);
+        z-index: 10001;
     }
 
     .closeBtn {
@@ -147,6 +181,11 @@
         .wrap {
             flex-direction: column;
         }
+
+        .overlayContent {
+            width: 92%;
+            height: 80%;
+        }
     }
 </style>
 </head>
@@ -159,14 +198,14 @@
         <div class="title">Best Anti-Pedo Discord</div>
 
         <div class="desc">
-            An Among Us server to prevent predators from making contact with children.
+            A community moderation hub designed to review and track reported safety entries.
         </div>
 
         <a class="btn" href="https://discord.gg/antidater" target="_blank">
             Join Discord
         </a>
 
-        <button class="btn" onclick="openIndex()">
+        <button class="btn index" onclick="openIndex()">
             Index
         </button>
     </div>
@@ -188,10 +227,18 @@
 
 <!-- INDEX OVERLAY -->
 <div class="overlay" id="overlay">
+
     <div class="overlayContent">
+
+        <div class="overlayHeader">
+            Index Viewer
+        </div>
+
         <button class="closeBtn" onclick="closeIndex()">Close</button>
+
         <iframe src="https://au.tntaddict.net/aufiles"></iframe>
     </div>
+
 </div>
 
 <script>
@@ -203,36 +250,6 @@ function openIndex() {
 function closeIndex() {
     document.getElementById("overlay").style.display = "none";
 }
-
-// optional tab tracking (unchanged)
-const KEY = "active_tabs";
-const tabId = Math.random().toString(36).substring(2);
-
-function getTabs() {
-    return JSON.parse(localStorage.getItem(KEY) || "[]");
-}
-
-function setTabs(tabs) {
-    localStorage.setItem(KEY, JSON.stringify(tabs));
-}
-
-function addTab() {
-    let tabs = getTabs();
-    if (!tabs.includes(tabId)) {
-        tabs.push(tabId);
-        setTabs(tabs);
-    }
-}
-
-function removeTab() {
-    let tabs = getTabs();
-    tabs = tabs.filter(t => t !== tabId);
-    setTabs(tabs);
-}
-
-addTab();
-setInterval(() => {}, 1000);
-window.addEventListener("beforeunload", removeTab);
 
 </script>
 
