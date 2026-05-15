@@ -183,12 +183,6 @@ function removeTab() {
     setTabs(tabs);
 }
 
-// update UI
-function update() {
-    const count = getTabs().length;
-    document.getElementById("online").innerText = "Online on Site: " + count;
-}
-
 // init
 addTab();
 update();
