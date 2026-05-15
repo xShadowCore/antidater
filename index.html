@@ -63,8 +63,6 @@
 
     .btn {
         display: inline-flex;
-        align-items: center;
-        gap: 8px;
         padding: 10px 16px;
         border-radius: 12px;
         text-decoration: none;
@@ -106,13 +104,10 @@
         backdrop-filter: blur(10px);
     }
 
-    /* WINDOW */
+    /* FIXED INDEX WINDOW */
     .overlay {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         display: none;
         justify-content: center;
         align-items: center;
@@ -120,17 +115,16 @@
     }
 
     .overlayContent {
-        width: 70vw;
-        height: 75vh;
-        max-width: 900px;
-        max-height: 650px;
+        width: 75vw;
+        height: 80vh;
+        max-width: 1000px;
+        max-height: 700px;
         background: #111;
         border-radius: 16px;
         overflow: hidden;
         border: 1px solid rgba(255,255,255,0.15);
         position: relative;
         box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-        padding: 50px 25px 25px 25px;
     }
 
     .overlayHeader {
@@ -139,6 +133,8 @@
         left: 12px;
         font-size: 13px;
         color: rgba(255,255,255,0.7);
+        z-index: 10;
+        pointer-events: none;
     }
 
     .closeBtn {
@@ -151,12 +147,15 @@
         background: rgba(255,255,255,0.1);
         color: white;
         cursor: pointer;
+        z-index: 11;
     }
 
-    .textBox {
-        font-size: 14px;
-        line-height: 1.6;
-        color: rgba(255,255,255,0.85);
+    /* IMPORTANT FIX */
+    .overlayContent iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
     }
 
     @media (max-width: 800px) {
@@ -198,7 +197,6 @@
         width="350"
         height="500"
         allowtransparency="true"
-        frameborder="0"
         sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
     </iframe>
 
@@ -208,7 +206,7 @@
     Site by NyveX | 1446657201757225231
 </div>
 
-<!-- INDEX WINDOW -->
+<!-- INDEX -->
 <div class="overlay" id="overlayIndex">
     <div class="overlayContent">
         <div class="overlayHeader">Index Viewer</div>
@@ -217,13 +215,13 @@
     </div>
 </div>
 
-<!-- INFO WINDOW -->
+<!-- WHO -->
 <div class="overlay" id="overlayWho">
     <div class="overlayContent">
         <div class="overlayHeader">Who gets indexed?</div>
         <button class="closeBtn" onclick="closeWho()">Close</button>
 
-        <div class="textBox">
+        <div style="padding: 60px 20px 20px 20px; color: rgba(255,255,255,0.85); line-height: 1.6;">
             As long as you are not flagged for inappropriate online behavior, you don’t need to worry about appearing in the database.  
             Only users involved in suspicious activity or rule violations may be included here.  
 
